@@ -4,7 +4,7 @@ const Parse = require('parse/node')
 const { ParseServer } = require('parse-server')
 
 const SERVER_PORT = process.env.PORT || 8080
-const SERVER_HOST = process.env.HOST || 'localhost'
+const SERVER_HOST = process.env.HOST || '192.168.1.137'
 const APP_ID = process.env.APP_ID || 'hackathon'
 const MASTER_KEY = process.env.MASTER_KEY || 'haha'
 const DATABASE_URI = process.env.DATABASE_URI || 'mongodb://localhost:27017/hackathon'
