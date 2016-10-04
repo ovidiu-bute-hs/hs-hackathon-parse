@@ -15,9 +15,9 @@ Parse.serverURL = `http://localhost:${SERVER_PORT}/parse`
 Parse.masterKey = MASTER_KEY
 Parse.Cloud.useMasterKey()
 
-const server = express()
+const app = express()
 
-server.use(
+app.use(
   '/parse',
   new ParseServer({
     databaseURI: DATABASE_URI,
@@ -25,9 +25,12 @@ server.use(
     appId: APP_ID,
     masterKey: MASTER_KEY,
     serverURL: `http://${SERVER_HOST}:${SERVER_PORT}/parse`,
+    liveQuery: {
+      classNames: ['BucharestOffice']
+    }
   })
 )
 
-server.listen(SERVER_PORT, () => console.log(
-  `Server is now running in ${process.env.NODE_ENV || 'development'} mode on http://localhost:${SERVER_PORT}`
-))
+let httpServer = require('http').createServer(app)
+httpServer.listen(SERVER_PORT)
+let parseLiveQueryServer = ParseServer.createLiveQueryServer(httpServer)
